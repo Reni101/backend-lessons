@@ -7,5 +7,5 @@ app.use(cors())
 
 app.get('/', (req, res) => {
 
-    res.status(200).json({version: '1.0'})
+    res.status(200).json('123123')
 })
