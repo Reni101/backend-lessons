@@ -9,7 +9,7 @@ export const videoController = {
         res.status(200).send('videos1123')
     },
     getVideoById: (req:Request,res:Response) => {
-        res.status(200).send('id trstasda')
+        res.status(200).send('id 123')
     }
 
 
