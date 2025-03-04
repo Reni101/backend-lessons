@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "tsc -w",
     "dev": "nodemon --inspect dist/index.js",
-    "jest": "jest -i",
+    "jest": "jest -i ",
     "jest:coverage": "jest -i --coverage",
     "dev -ts": "yarn nodemon --inspect src/index.ts"
   },

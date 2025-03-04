@@ -8,8 +8,8 @@ export const videoRouter = Router()
 
 export const videoController = {
 
-    getVideos: (req: Request, res: Response) => {
-        res.status(200).json([]);
+    getVideos: (req: Request, res: Response,) => {
+        res.status(200).json(db.videos);
     },
     createVideos: (req: Request<ParamType, OutputType, BodyType, QueryType>, res: Response) => {
 
@@ -23,7 +23,7 @@ export const videoController = {
             publicationDate: new Date().toISOString(),
         }
         db.videos.push(newVideo);
-        res.status(200).json(db.videos);
+        res.status(200).json(db.videos).end();
     },
 
 
