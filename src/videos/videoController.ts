@@ -11,7 +11,7 @@ export const videoController = {
     getVideos: (req: Request, res: Response,) => {
         res.status(200).json(db.videos);
     },
-    createVideos: (req: Request<ParamType, OutputType, BodyType, QueryType>, res: Response) => {
+    createVideo: (req: Request<ParamType, OutputType, BodyType, QueryType>, res: Response) => {
 
 
         const newVideo: VideoDBType = {
@@ -30,4 +30,4 @@ export const videoController = {
 }
 
 videoRouter.get('/', videoController.getVideos)
-videoRouter.post('/', videoController.createVideos)
+videoRouter.post('/', videoController.createVideo)
