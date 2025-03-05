@@ -4,7 +4,7 @@ export type ParamType = {
     id: string
 }
 
-export type BodyType = {
+export type NewVideoBodyType = {
     title: string
     author: string
     availableResolutions: AvailableResolutions[]
