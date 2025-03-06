@@ -39,7 +39,37 @@ export const videoController = {
             res.status(400).end()
         }
 
+    },
 
+    updateVideo: (req: Request, res: Response) => {
+        if (req.params.id) {
+            const id = req.params.id
+
+            const index = db.videos.findIndex(v => v.id === +id)
+            if (index > -1) {
+                const video = db.videos[index]
+                db.videos[index] = {...req.body, id: index, createdAt: video.createdAt}
+                res.status(204).end()
+                return
+            }
+            res.status(404).end()
+            return
+        }
+        res.status(404).end()
+    },
+    deleteVideo: (req: Request, res: Response) => {
+        if (req.params.id) {
+            const id = req.params.id
+            const index = db.videos.findIndex(v => v.id === +id)
+            if (index > -1) {
+                db.videos.splice(index, 1)
+                res.status(204).end()
+            }
+            res.status(404).end()
+            return
+        }
+        res.status(404).end()
+        return;
     }
 
 
@@ -48,3 +78,5 @@ export const videoController = {
 videoRouter.get('/', videoController.getVideos)
 videoRouter.post('/', videoController.createVideo)
 videoRouter.get('/:id', videoController.getVideoById)
+videoRouter.put('/:id', videoController.updateVideo)
+videoRouter.delete('/:id', videoController.deleteVideo)
