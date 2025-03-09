@@ -21,14 +21,18 @@ export const videoController = {
             return
         }
 
+        const today= new Date()
+
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + 1);
 
         const newVideo: VideoDBType = {
             ...req.body,
             id: Math.floor(Date.now() / 1000),
             canBeDownloaded: true,
             minAgeRestriction: 18,
-            createdAt: new Date().toISOString(),
-            publicationDate: new Date().toISOString(),
+            createdAt: today.toISOString(),
+            publicationDate: nextDay.toISOString(),
         }
         db.videos.push(newVideo);
         res.status(200).json(newVideo).end();
