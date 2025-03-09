@@ -29,8 +29,8 @@ export const videoController = {
         const newVideo: VideoDBType = {
             ...req.body,
             id: Math.floor(Date.now() / 1000),
-            canBeDownloaded: true,
-            minAgeRestriction: 18,
+            canBeDownloaded: false,
+            minAgeRestriction: null,
             createdAt: today.toISOString(),
             publicationDate: nextDay.toISOString(),
         }
