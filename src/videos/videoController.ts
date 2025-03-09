@@ -17,7 +17,7 @@ export const videoController = {
         const errorsMessages: ErrorType[] = []
         titleValidation(req.body.title, errorsMessages)
         if (errorsMessages.length > 0) {
-            res.status(400).json({errors: errorsMessages}).end()
+            res.status(400).json({errorsMessages}).end()
             return
         }
 
