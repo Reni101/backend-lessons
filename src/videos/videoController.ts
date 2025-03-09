@@ -16,12 +16,12 @@ export const videoController = {
     createVideo: (req: Request<ParamType, OutputType, NewVideoBodyType, QueryType>, res: Response) => {
         const errorsMessages: ErrorType[] = []
         titleValidation(req.body.title, errorsMessages)
-        if(errorsMessages.length > 0){
+        if (errorsMessages.length > 0) {
             res.status(400).json({errors: errorsMessages}).end()
             return
         }
 
-        const today= new Date()
+        const today = new Date()
 
         const nextDay = new Date(today);
         nextDay.setDate(today.getDate() + 1);
@@ -45,7 +45,7 @@ export const videoController = {
             const video = db.videos.find(v => v.id === +id)
             if (!video) {
                 res.status(404).end()
-            }else {
+            } else {
                 db.videos = db.videos.filter(v => v.id !== +id)
                 res.status(200).end()
             }
@@ -62,7 +62,17 @@ export const videoController = {
             const index = db.videos.findIndex(v => v.id === +id)
             if (index > -1) {
                 const video = db.videos[index]
-                db.videos[index] = {...req.body, id: index, createdAt: video.createdAt}
+
+
+                video.author = req.body.author
+                video.title = req.body.title
+                video.availableResolutions = req.body.availableResolutions,
+                    video.canBeDownloaded = req.body.canBeDownloaded,
+                    video.createdAt = req.body.createdAt,
+                    video.publicationDate = req.body.publicationDate,
+                    video.minAgeRestriction = req.body.minAgeRestriction
+
+
                 res.status(204).end()
                 return
             }
