@@ -46,13 +46,11 @@ export const videoController = {
         if (req.params.id) {
             const id = +req.params.id
             const video = db.videos.find(v => v.id === id)
-            if(video){
+            if (video) {
                 res.status(200).json(video).end()
-            }else {
+            } else {
                 res.status(404).end()
             }
-
-
 
         } else {
             res.status(404).end()
@@ -81,8 +79,9 @@ export const videoController = {
                     video.createdAt = req.body.createdAt,
                     video.publicationDate = req.body.publicationDate,
                     video.minAgeRestriction = req.body.minAgeRestriction
-
-
+                let updatedVide:Partial<VideoDBType> = {...video}
+                delete updatedVide.createdAt
+                delete updatedVide.availableResolutions
                 res.status(204).json(video).end()
                 return
             }
@@ -98,7 +97,7 @@ export const videoController = {
             if (index > -1) {
                 db.videos.splice(index, 1)
                 res.status(204).end()
-            }else {
+            } else {
                 res.status(404).end()
                 return
             }
