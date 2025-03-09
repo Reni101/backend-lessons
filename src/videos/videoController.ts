@@ -27,7 +27,9 @@ export const videoController = {
         nextDay.setDate(today.getDate() + 1);
 
         const newVideo: VideoDBType = {
-            ...req.body,
+            author: req.body.author,
+            availableResolutions: req.body.availableResolutions,
+            title: req.body.title,
             id: Math.floor(Date.now() / 1000),
             canBeDownloaded: false,
             minAgeRestriction: null,
