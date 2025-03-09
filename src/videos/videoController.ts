@@ -38,6 +38,7 @@ export const videoController = {
         }
         db.videos.push(newVideo);
         res.status(201).json(newVideo).end();
+        return;
     },
 
     getVideoById: (req: Request, res: Response) => {
@@ -45,15 +46,18 @@ export const videoController = {
         if (req.params.id) {
             const id = req.params.id
             const video = db.videos.find(v => v.id === +id)
+            console.log(video)
             if (!video) {
                 res.status(404).end()
             } else {
-                db.videos = db.videos.filter(v => v.id !== +id)
-                res.status(200).end()
+                console.log(video)
+                res.status(200).json(video).end()
+
             }
 
         } else {
             res.status(404).end()
+            return
         }
 
     },
