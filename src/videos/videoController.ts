@@ -21,10 +21,10 @@ export const videoController = {
             return
         }
 
-        const today = new Date()
-
-        const nextDay = new Date(today);
-        nextDay.setDate(today.getDate() + 1);
+        // const today =
+        //
+        // const nextDay = new Date(today);
+        // nextDay.setDate(today.getDate() + 1);
 
         const newVideo: VideoDBType = {
             author: req.body.author,
@@ -33,8 +33,8 @@ export const videoController = {
             id: Math.floor(Date.now() / 1000),
             canBeDownloaded: false,
             minAgeRestriction: null,
-            createdAt: today.toISOString(),
-            publicationDate: nextDay.toISOString(),
+            createdAt: new Date().toISOString(),
+            publicationDate: new Date().toISOString(),
         }
         db.videos.push(newVideo);
         res.status(201).json(newVideo).end();
