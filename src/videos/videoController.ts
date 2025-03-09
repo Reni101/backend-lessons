@@ -62,7 +62,12 @@ export const videoController = {
             const index = db.videos.findIndex(v => v.id === +id)
             if (index > -1) {
                 const video = db.videos[index]
-
+                const errorsMessages: ErrorType[] = []
+                titleValidation(req.body.title, errorsMessages)
+                if (errorsMessages.length > 0) {
+                    res.status(400).json({errors: errorsMessages}).end()
+                    return
+                }
 
                 video.author = req.body.author
                 video.title = req.body.title
