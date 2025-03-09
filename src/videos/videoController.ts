@@ -1,7 +1,9 @@
 import {Request, Response, Router} from "express";
 import {db} from "../db/db";
-import {NewVideoBodyType, OutputType, ParamType, QueryType} from "./types";
+import {ErrorType, NewVideoBodyType, OutputType, ParamType, QueryType} from "./types";
 import {VideoDBType} from "../db/VideoDBType";
+import {titleValidation} from "./validations";
+
 
 export const videoRouter = Router()
 
@@ -12,6 +14,15 @@ export const videoController = {
         res.status(200).json(db.videos);
     },
     createVideo: (req: Request<ParamType, OutputType, NewVideoBodyType, QueryType>, res: Response) => {
+        const errorsMessages: ErrorType[] = []
+        titleValidation(req.body.title, errorsMessages)
+
+        if(errorsMessages.length > 0){
+            res.status(400).json({errors: errorsMessages}).end()
+            return
+        }
+
+
         const newVideo: VideoDBType = {
             ...req.body,
             id: Math.floor(Date.now() / 1000),
@@ -43,8 +54,6 @@ export const videoController = {
 
     updateVideo: (req: Request, res: Response) => {
         if (req.params.id) {
-
-
             const id = req.params.id
             const index = db.videos.findIndex(v => v.id === +id)
             if (index > -1) {

@@ -16,6 +16,13 @@ export type QueryType = {
 
 export type OutputType = void
 
+export type ErrorType = {
+    message: string
+    field: string
+}
+
+
+
 //
 // export const someController = (
 //     req: Request<ParamType, OutputType, BodyType, QueryType>,
