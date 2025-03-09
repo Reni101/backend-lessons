@@ -78,7 +78,7 @@ export const videoController = {
                     video.minAgeRestriction = req.body.minAgeRestriction
 
 
-                res.status(204).end()
+                res.status(204).json(video).end()
                 return
             }
             res.status(404).end()
