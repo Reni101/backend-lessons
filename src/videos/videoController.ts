@@ -35,7 +35,7 @@ export const videoController = {
             publicationDate: nextDay.toISOString(),
         }
         db.videos.push(newVideo);
-        res.status(200).json(newVideo).end();
+        res.status(201).json(newVideo).end();
     },
 
     getVideoById: (req: Request, res: Response) => {
