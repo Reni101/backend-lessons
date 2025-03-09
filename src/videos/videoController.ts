@@ -43,8 +43,9 @@ export const videoController = {
 
     updateVideo: (req: Request, res: Response) => {
         if (req.params.id) {
-            const id = req.params.id
 
+
+            const id = req.params.id
             const index = db.videos.findIndex(v => v.id === +id)
             if (index > -1) {
                 const video = db.videos[index]
