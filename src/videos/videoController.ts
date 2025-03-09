@@ -81,7 +81,6 @@ export const videoController = {
                     video.minAgeRestriction = req.body.minAgeRestriction
                 let updatedVide:Partial<VideoDBType> = {...video}
                 delete updatedVide.createdAt
-                delete updatedVide.availableResolutions
                 res.status(204).json(video).end()
                 return
             }
