@@ -98,9 +98,12 @@ export const videoController = {
             if (index > -1) {
                 db.videos.splice(index, 1)
                 res.status(204).end()
+            }else {
+                res.status(404).end()
+                return
             }
-            res.status(404).end()
-            return
+
+
         }
         res.status(404).end()
         return;
