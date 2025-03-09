@@ -44,13 +44,14 @@ export const videoController = {
             const id = req.params.id
             const video = db.videos.find(v => v.id === +id)
             if (!video) {
-                res.status(204).end()
+                res.status(404).end()
+            }else {
+                db.videos = db.videos.filter(v => v.id !== +id)
+                res.status(200).end()
             }
 
-            res.status(200).json(video).end()
-
         } else {
-            res.status(400).end()
+            res.status(404).end()
         }
 
     },
