@@ -79,7 +79,7 @@ export const videoController = {
                     video.createdAt = req.body.createdAt,
                     video.publicationDate = req.body.publicationDate,
                     video.minAgeRestriction = req.body.minAgeRestriction
-                let updatedVide:Partial<VideoDBType> = {...video}
+                let updatedVide: Partial<VideoDBType> = {...video}
                 delete updatedVide.createdAt
                 res.status(204).json(video).end()
                 return
@@ -100,11 +100,10 @@ export const videoController = {
                 res.status(404).end()
                 return
             }
-
-
+        } else {
+            res.status(404).end()
         }
-        res.status(404).end()
-        return;
+
     }
 
 
