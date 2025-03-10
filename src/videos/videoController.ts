@@ -2,7 +2,7 @@ import {Request, Response, Router} from "express";
 import {db} from "../db/db";
 import {ErrorType, NewVideoBodyType, OutputType, ParamType, QueryType} from "./types";
 import {VideoDBType} from "../db/VideoDBType";
-import {titleValidation} from "./validations";
+import {authorValidation, titleValidation} from "./validations";
 
 
 export const videoRouter = Router()
@@ -16,6 +16,7 @@ export const videoController = {
     createVideo: (req: Request<ParamType, OutputType, NewVideoBodyType, QueryType>, res: Response) => {
         const errorsMessages: ErrorType[] = []
         titleValidation(req.body.title, errorsMessages)
+        authorValidation(req.body.author, errorsMessages)
         if (errorsMessages.length > 0) {
             res.status(400).json({errorsMessages}).end()
             return
@@ -63,6 +64,11 @@ export const videoController = {
         if (req.params.id) {
             const errorsMessages: ErrorType[] = []
             titleValidation(req.body.title, errorsMessages)
+            authorValidation(req.body.author, errorsMessages)
+            if (req.body.canBeDownloaded !== typeof 'boolean') {
+                errorsMessages.push({message: 'not boolean', field: 'canBeDownloaded'})
+            }
+
             if (errorsMessages.length > 0) {
                 res.status(400).json({errors: errorsMessages}).end()
                 return
@@ -109,12 +115,15 @@ export const videoController = {
             if (index > -1) {
                 db.videos.splice(index, 1)
                 res.status(204).end()
+                return;
             } else {
                 res.status(404).end()
                 return
             }
         } else {
             res.status(404).end()
+            return
+
         }
 
     }
