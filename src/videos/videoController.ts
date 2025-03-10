@@ -61,27 +61,40 @@ export const videoController = {
 
     updateVideo: (req: Request, res: Response) => {
         if (req.params.id) {
+            const errorsMessages: ErrorType[] = []
+            titleValidation(req.body.title, errorsMessages)
+            if (errorsMessages.length > 0) {
+                res.status(400).json({errors: errorsMessages}).end()
+                return
+            }
+
             const id = req.params.id
             const index = db.videos.findIndex(v => v.id === +id)
             if (index > -1) {
                 const video = db.videos[index]
-                const errorsMessages: ErrorType[] = []
-                titleValidation(req.body.title, errorsMessages)
-                if (errorsMessages.length > 0) {
-                    res.status(400).json({errors: errorsMessages}).end()
-                    return
-                }
 
-                video.author = req.body.author
-                video.title = req.body.title
-                video.availableResolutions = req.body.availableResolutions
-                video.canBeDownloaded = req.body.canBeDownloaded
-                video.publicationDate = req.body.publicationDate
-                video.minAgeRestriction = req.body.minAgeRestriction
+                if (req.body.author) {
+                    video.author = req.body.author
+                }
+                if (req.body.title) {
+                    video.title = req.body.title
+                }
+                if (req.body.availableResolutions) {
+                    video.availableResolutions = req.body.availableResolutions
+                }
+                if (req.body.canBeDownloaded) {
+                    video.canBeDownloaded = req.body.canBeDownloaded
+                }
+                if (req.body.publicationDate) {
+                    video.publicationDate = req.body.publicationDate
+                }
+                if (req.body.minAgeRestriction) {
+                    video.minAgeRestriction = req.body.minAgeRestriction
+                }
 
                 let updatedVide: Partial<VideoDBType> = {...video}
                 delete updatedVide.createdAt
-                res.status(204).json(video).end()
+                res.status(204).end()
                 return
             }
             res.status(404).end()
