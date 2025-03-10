@@ -2,7 +2,12 @@ import {Request, Response, Router} from "express";
 import {db} from "../db/db";
 import {ErrorType, NewVideoBodyType, OutputType, ParamType, QueryType} from "./types";
 import {VideoDBType} from "../db/VideoDBType";
-import {authorValidation, availableResolutionsValidation, titleValidation} from "./validations";
+import {
+    authorValidation,
+    availableResolutionsValidation,
+    minAgeRestrictionValidation,
+    titleValidation
+} from "./validations";
 
 
 export const videoRouter = Router()
@@ -69,6 +74,7 @@ export const videoController = {
             titleValidation(req.body.title, errorsMessages)
             authorValidation(req.body.author, errorsMessages)
             availableResolutionsValidation(req.body.availableResolutions, errorsMessages)
+            minAgeRestrictionValidation(req.body.minAgeRestriction, errorsMessages)
 
             if (typeof req.body.canBeDownloaded !== 'boolean') {
                 errorsMessages.push({message: 'not boolean', field: 'canBeDownloaded'})

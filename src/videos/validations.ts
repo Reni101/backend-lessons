@@ -31,3 +31,9 @@ export const availableResolutionsValidation = (availableResolutions: string[], e
     }
 
 }
+export const minAgeRestrictionValidation = (age: number, errors: ErrorType[]) => {
+    if(age <1 || age > 18) {
+        errors.push({message: 'error', field: 'minAgeRestriction'})
+    }
+
+}
