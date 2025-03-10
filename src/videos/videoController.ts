@@ -5,7 +5,7 @@ import {VideoDBType} from "../db/VideoDBType";
 import {
     authorValidation,
     availableResolutionsValidation,
-    minAgeRestrictionValidation,
+    minAgeRestrictionValidation, publicationDateValidation,
     titleValidation
 } from "./validations";
 
@@ -75,6 +75,7 @@ export const videoController = {
             authorValidation(req.body.author, errorsMessages)
             availableResolutionsValidation(req.body.availableResolutions, errorsMessages)
             minAgeRestrictionValidation(req.body.minAgeRestriction, errorsMessages)
+            publicationDateValidation(req.body.publicationDate, errorsMessages)
 
             if (typeof req.body.canBeDownloaded !== 'boolean') {
                 errorsMessages.push({message: 'not boolean', field: 'canBeDownloaded'})
