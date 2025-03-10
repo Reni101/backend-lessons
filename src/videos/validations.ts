@@ -1,4 +1,5 @@
 import {ErrorType} from "./types";
+import {AvailableResolutions} from "../db/VideoDBType";
 
 export const titleValidation = (title: string | undefined, errors: ErrorType[]) => {
     if (!title) {
@@ -17,4 +18,16 @@ export const authorValidation = (author: string | undefined, errors: ErrorType[]
     if (author && author.trim().length > 20) {
         errors.push({message: 'Incorrect length max 20', field: 'author'})
     }
+}
+export const availableResolutionsValidation = (availableResolutions: string[], errors: ErrorType[]) => {
+    const isEvery = availableResolutions.every(resolution => {
+            // @ts-ignore
+            return Object.values(AvailableResolutions).includes(resolution)
+        }
+    )
+
+    if(!isEvery) {
+        errors.push({message: 'error', field: 'availableResolutions'})
+    }
+
 }
