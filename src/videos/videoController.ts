@@ -65,7 +65,8 @@ export const videoController = {
             const errorsMessages: ErrorType[] = []
             titleValidation(req.body.title, errorsMessages)
             authorValidation(req.body.author, errorsMessages)
-            if (req.body.canBeDownloaded !== typeof 'boolean') {
+
+            if (typeof req.body.canBeDownloaded !==  'boolean') {
                 errorsMessages.push({message: 'not boolean', field: 'canBeDownloaded'})
             }
 
