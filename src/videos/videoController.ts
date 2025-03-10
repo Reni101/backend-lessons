@@ -74,11 +74,11 @@ export const videoController = {
 
                 video.author = req.body.author
                 video.title = req.body.title
-                video.availableResolutions = req.body.availableResolutions,
-                    video.canBeDownloaded = req.body.canBeDownloaded,
-                    // video.createdAt = req.body.createdAt,
-                    video.publicationDate = req.body.publicationDate,
-                    video.minAgeRestriction = req.body.minAgeRestriction
+                video.availableResolutions = req.body.availableResolutions
+                video.canBeDownloaded = req.body.canBeDownloaded
+                video.publicationDate = req.body.publicationDate
+                video.minAgeRestriction = req.body.minAgeRestriction
+
                 let updatedVide: Partial<VideoDBType> = {...video}
                 delete updatedVide.createdAt
                 res.status(204).json(video).end()
