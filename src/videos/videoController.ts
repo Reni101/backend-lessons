@@ -21,10 +21,10 @@ export const videoController = {
             return
         }
 
-        // const today =
-        //
-        // const nextDay = new Date(today);
-        // nextDay.setDate(today.getDate() + 1);
+        const today = new Date()
+
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + 1);
 
         const newVideo: VideoDBType = {
             author: req.body.author,
@@ -33,8 +33,8 @@ export const videoController = {
             id: Math.floor(Date.now() / 1000),
             canBeDownloaded: false,
             minAgeRestriction: null,
-            createdAt: new Date().toISOString(),
-            publicationDate: new Date().toISOString(),
+            createdAt: today.toISOString(),
+            publicationDate: nextDay.toISOString(),
         }
         db.videos.push(newVideo);
         res.status(201).json(newVideo).end();
@@ -76,7 +76,7 @@ export const videoController = {
                 video.title = req.body.title
                 video.availableResolutions = req.body.availableResolutions,
                     video.canBeDownloaded = req.body.canBeDownloaded,
-                    video.createdAt = req.body.createdAt,
+                    // video.createdAt = req.body.createdAt,
                     video.publicationDate = req.body.publicationDate,
                     video.minAgeRestriction = req.body.minAgeRestriction
                 let updatedVide: Partial<VideoDBType> = {...video}
